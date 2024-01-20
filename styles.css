@@ -1,0 +1,224 @@
+:root {
+    /*LIGHT MODE*/
+    --color-text-very-dark-blue: hsl(200, 15%, 8%);
+    --color-input-dark-gray: hsl(0, 0%, 52%);
+    --color-background-very-light-gray: hsl(0, 0%, 95%);
+    --color-white: hsl(0, 0%, 100%);
+    --box-shadow-light: 0px 3px 8px -2px hsl(200, 0%, 68%);
+    /*DARK MODE*/
+    --color-background-very-dark-blue: hsl(207, 26%, 17%);
+    --color-dark-mode-elements-dark-blue: hsl(209, 23%, 22%);
+    --box-shadow-dark: 0px 3px 8px -2px hsl(0, 0%, 2%);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    color: var(--color-text-very-dark-blue);
+    background-color: var(--color-background-very-light-gray);
+}
+
+header {
+    background-color: var(--color-white);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+header button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+/* 
+    light / default - moon ukryty, a moon-outline widoczny
+    dark-mode -  moon widoczny, a moon-outline ukryty
+*/
+/* header button [name="moon"] {
+    display: none;
+}
+
+body.dark-mode header button [name="moon"] {
+    display: block;
+}
+
+body.dark-mode header button [name="moon-outline"] {
+    display: none;
+} */
+/* .dark-mode {
+    
+} */
+
+hr {
+    height: 8px;
+    background: linear-gradient(hsl(0, 0%, 90%), transparent);
+    border: none;
+}
+
+.search [name="search-outline"] {
+    position: relative;
+    left: 2em;
+}
+
+input[type='text'],
+select {
+    background-color: var(--color-white);
+    border: none;
+    padding: 15px 30px;
+    box-shadow: var(--box-shadow-light);
+    border-radius: 3px;
+}
+
+/* DISCOURAGED APPROACH */
+/* body.dark input[type='text'],
+select {
+    background-color: var(--color-dark);
+} */
+
+/* PREFERRED APPROACH */
+/* Use more generic var name e.g. --color-primary */
+/* body.dark {
+    --color-white: hsl(0, 0%, 14%);
+} */
+
+.filters,
+.header-content,
+main {
+    max-width: 1440px;
+    margin: 0 auto;  /* auto jako wyśrodkowanie w poziomie */
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.filters {
+    display: none;
+}
+.filters.active {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+main {
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+ul {
+    display: grid; /* grid nadajemy rodzicowi, czyli ul */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    list-style: none;
+    gap: 60px;
+}
+
+li {
+    border-radius: 8px;
+    overflow: hidden; /* ukrywa to, co wystaje ponad diva */
+    box-shadow: var(--box-shadow-light);
+    background-color: var(--color-white);
+}
+
+li img {
+    width: 100%;
+}
+li a {
+    text-decoration: none;
+    color: var(--color-text-very-dark-blue);
+}
+
+.info-container {
+    padding: 30px 20px;
+}
+
+.country-name {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+
+}
+
+@media only screen and (max-width: 960px) {
+    ul {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    ul {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+.detail-button {
+    background: transparent;
+    box-shadow: var(--box-shadow);
+    border-radius: 3px;
+    color: var(--color-text-very-dark-blue);
+    display: inline-block;
+    padding: 0.25em 1em;
+    margin: 0 4px;
+    text-decoration: none;
+}
+.detail-back-link {
+    margin: 0 0 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+    width: fit-content;
+}
+
+.detail-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.detail-container .info-content {
+    column-count: 2;
+    column-fill: auto;
+    height: 8em;
+}
+
+/* DARK MODE */
+body.dark {
+    color: var(--color-white);
+    background-color: var(--color-background-very-dark-blue);
+}
+
+body.dark header,
+body.dark input [type='text'],
+body.dark select,
+body.dark li {
+    background-color: var(--color-dark-mode-elements-dark-blue);
+}
+
+body.dark input [type='text'],
+body.dark select {
+    box-shadow: var(--box-shadow-dark);
+}
+
+body.dark hr {
+    background: linear-gradient(hsl(0, 0%, 14%), transparent);
+}
