@@ -5,10 +5,15 @@
     --color-background-very-light-gray: hsl(0, 0%, 95%);
     --color-white: hsl(0, 0%, 100%);
     --box-shadow-light: 0px 3px 8px -2px hsl(200, 0%, 68%);
+    --gradient-light: hsl(0, 0%, 90%);
+    --country-border-shadow-light: 0px 0px 4px -1px hsl(200, 0%, 68%);
+
     /*DARK MODE*/
     --color-background-very-dark-blue: hsl(207, 26%, 17%);
     --color-dark-mode-elements-dark-blue: hsl(209, 23%, 22%);
     --box-shadow-dark: 0px 3px 8px -2px hsl(0, 0%, 2%);
+    --gradient-dark: hsl(0, 0%, 14%);
+    --country-border-shadow-dark: 0px 0px 6px -1px hsl(0, 0%, 2%);
 }
 
 * {
@@ -18,14 +23,31 @@
 }
 
 body {
+    --primary-color: var(--color-text-very-dark-blue);
+    --primary-bg-color: var(--color-background-very-light-gray);
+    --primary-shadow: var(--box-shadow-light);
+    --primary-gradient: var(--gradient-light);
+    --secondary-bg-color: var(--color-white);
+    --country-border-shadow: var(--country-border-shadow-light);
+
     font-family: 'Nunito Sans', sans-serif;
     font-size: 14px;
-    color: var(--color-text-very-dark-blue);
-    background-color: var(--color-background-very-light-gray);
+    color: var(--primary-color);
+    background-color: var(--primary-bg-color);
+}
+
+/* DARK MODE */
+body.dark {
+    --primary-color: var(--color-white);
+    --primary-bg-color: var(--color-background-very-dark-blue);
+    --primary-shadow: var(--box-shadow-dark);
+    --primary-gradient: var(--gradient-dark);
+    --secondary-bg-color: var(--color-dark-mode-elements-dark-blue);
+    --country-border-shadow: var(--country-border-shadow-dark);
 }
 
 header {
-    background-color: var(--color-white);
+    background-color: var(--secondary-bg-color);
 }
 
 .header-content {
@@ -47,27 +69,24 @@ header button {
 }
 
 /* 
-    light / default - moon ukryty, a moon-outline widoczny
-    dark-mode -  moon widoczny, a moon-outline ukryty
+    light - moon ukryty, a moon-outline widoczny
+    dark -  moon widoczny, a moon-outline ukryty
 */
-/* header button [name="moon"] {
+header button [name="moon"] {
     display: none;
 }
 
-body.dark-mode header button [name="moon"] {
-    display: block;
+body.dark header button [name="moon"] {
+    display: initial;
 }
 
-body.dark-mode header button [name="moon-outline"] {
+body.dark header button [name="moon-outline"] {
     display: none;
-} */
-/* .dark-mode {
-    
-} */
+}
 
 hr {
     height: 8px;
-    background: linear-gradient(hsl(0, 0%, 90%), transparent);
+    background: linear-gradient(var(--primary-gradient), transparent);
     border: none;
 }
 
@@ -78,24 +97,22 @@ hr {
 
 input[type='text'],
 select {
-    background-color: var(--color-white);
+    background-color: var(--secondary-bg-color);
     border: none;
-    padding: 15px 30px;
-    box-shadow: var(--box-shadow-light);
+    color: var(--primary-color);
+    padding: 1em 2em;
+    box-shadow: var(--primary-shadow);
     border-radius: 3px;
 }
 
-/* DISCOURAGED APPROACH */
-/* body.dark input[type='text'],
-select {
-    background-color: var(--color-dark);
-} */
+button {
+    color: var(--primary-color);
+}
 
-/* PREFERRED APPROACH */
-/* Use more generic var name e.g. --color-primary */
-/* body.dark {
-    --color-white: hsl(0, 0%, 14%);
-} */
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
 
 .filters,
 .header-content,
@@ -130,16 +147,12 @@ ul {
 li {
     border-radius: 8px;
     overflow: hidden; /* ukrywa to, co wystaje ponad diva */
-    box-shadow: var(--box-shadow-light);
-    background-color: var(--color-white);
+    box-shadow: var(--primary-shadow);
+    background-color: var(--secondary-bg-color);
 }
 
 li img {
     width: 100%;
-}
-li a {
-    text-decoration: none;
-    color: var(--color-text-very-dark-blue);
 }
 
 .info-container {
@@ -151,6 +164,15 @@ li a {
     margin-bottom: 10px;
     font-size: 18px;
 
+}
+
+.shadow-button {
+    box-shadow: var(--primary-shadow);
+    border-radius: 3px;
+    display: inline-block;
+    padding: 0.25em 1em;
+    margin: 0 0.25em;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 960px) {
@@ -171,16 +193,14 @@ li a {
     }
 }
 
-.detail-button {
-    background: transparent;
-    box-shadow: var(--box-shadow);
-    border-radius: 3px;
-    color: var(--color-text-very-dark-blue);
-    display: inline-block;
-    padding: 0.25em 1em;
-    margin: 0 4px;
-    text-decoration: none;
+.border-countries strong {
+    margin-right: .75em;
 }
+
+.border-countries .shadow-button {
+    box-shadow: var(--country-border-shadow);
+}
+
 .detail-back-link {
     margin: 0 0 20px 0;
     display: flex;
@@ -188,6 +208,10 @@ li a {
     align-items: center;
     gap: 0.5em;
     width: fit-content;
+}
+.detail-name {
+    font-size: 1.5em;
+    margin-bottom: 1em;
 }
 
 .detail-container {
@@ -201,24 +225,14 @@ li a {
     height: 8em;
 }
 
-/* DARK MODE */
-body.dark {
-    color: var(--color-white);
-    background-color: var(--color-background-very-dark-blue);
-}
+/* DISCOURAGED APPROACH */
+/* body.dark input[type='text'],
+select {
+    background-color: var(--color-dark);
+} */
 
-body.dark header,
-body.dark input [type='text'],
-body.dark select,
-body.dark li {
-    background-color: var(--color-dark-mode-elements-dark-blue);
-}
-
-body.dark input [type='text'],
-body.dark select {
-    box-shadow: var(--box-shadow-dark);
-}
-
-body.dark hr {
-    background: linear-gradient(hsl(0, 0%, 14%), transparent);
-}
+/* PREFERRED APPROACH */
+/* Use more generic var name e.g. --color-primary */
+/* body.dark {
+    --color-white: hsl(0, 0%, 14%);
+} */
