@@ -8,11 +8,32 @@ if (window.location.search.includes('?country=')) {
     renderDashboard();
 }
 
+const modeLabel = document.querySelector('.header-content button span');
+
+// JS wykrywa jakie są ustawienia theme w lokalnym komputerze.
+// Po zastosowaniu matchMedia i property mql - matches nie trzeba w css-ie stosować styli @media(prefers...)
+const mql = matchMedia('(prefers-color-scheme: dark)')
+
+let theme = localStorage.getItem('theme') || (mql.matches ? 'dark' : 'light');
+
+modeLabel.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+const { body } = document;
+
+body.classList.add(theme);
+
 document.querySelector('header button').addEventListener('click', () => {
-    
-    if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark');
+    if (theme === 'dark') {
+        theme = 'light';
+        body.classList.remove('dark');
+        body.classList.add(theme);
+        localStorage.setItem('theme', theme)
+        modeLabel.textContent = 'Dark Mode';
     } else {
-        document.body.classList.add('dark');
+        theme = 'dark';
+        body.classList.remove('light');
+        body.classList.add(theme);
+        localStorage.setItem('theme', theme)
+        modeLabel.textContent = 'Light Mode';
     }
 })
